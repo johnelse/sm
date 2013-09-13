@@ -50,7 +50,8 @@ DRIVER_INFO = {
     'configuration': CONFIGURATION
     }
 
-DRIVER_CONFIG = {"ATTACH_FROM_CONFIG_WITH_TAPDISK": True}
+# DRIVER_CONFIG = {"ATTACH_FROM_CONFIG_WITH_TAPDISK": True}
+DRIVER_CONFIG = {}
 
 
 # The mountpoint for the directory when performing an sr_probe.  All probes
@@ -263,6 +264,7 @@ class NFSFileVDI(FileSR.FileVDI):
         try:
             if not util.pathexists(self.sr.path):
                 self.sr.attach(sr_uuid)
+            return FileSR.FileVDI.attach(self, sr_uuid, vdi_uuid)
         except:
             util.logException("NFSFileVDI.attach_from_config")
             raise xs_errors.XenError('SRUnavailable', \
